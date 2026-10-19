@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Portal web que consume The Rick and Morty API usando Fetch API de JavaScript." />
+  <title>Rick & Morty Explorer | Consumo de API pública</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <div class="bg-orb orb-1"></div>
+  <div class="bg-orb orb-2"></div>
+
+  <header class="topbar">
+    <a href="#inicio" class="brand" aria-label="Ir al inicio">
+      <span class="brand-mark">R&M</span>
+      <span>Rick & Morty Explorer</span>
+    </a>
+    <nav class="nav" aria-label="Navegación principal">
+      <a href="#explorar">Explorar</a>
+      <a href="#api">API</a>
+      <a href="#acerca">Acerca</a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="inicio" class="hero container">
+      <div class="hero-copy">
+        <span class="eyebrow">DISEÑO DE SISTEMAS EN INTERNET · FETCH API</span>
+        <h1>Explora personajes del multiverso en tiempo real.</h1>
+        <p>
+          Portal web desarrollado con HTML, CSS y JavaScript que consume una API pública
+          mediante <strong>fetch()</strong>, procesa respuestas JSON y renderiza la información dinámicamente.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#explorar">Comenzar a explorar</a>
+          <button id="randomBtn" class="btn btn-secondary" type="button">Personaje aleatorio</button>
+        </div>
+        <div class="tech-row" aria-label="Tecnologías usadas">
+          <span>HTML5</span><span>CSS3</span><span>JavaScript</span><span>REST API</span><span>JSON</span>
+        </div>
+      </div>
+
+      <aside class="hero-panel" aria-label="Resumen técnico">
+        <div class="status-line">
+          <span class="status-dot"></span>
+          <span>API pública conectada</span>
+        </div>
+        <p class="endpoint-label">Endpoint base</p>
+        <code>https://rickandmortyapi.com/api</code>
+        <div class="mini-grid">
+          <div><strong id="metricCharacters">826</strong><span>personajes</span></div>
+          <div><strong>REST</strong><span>servicio web</span></div>
+          <div><strong>GET</strong><span>peticiones</span></div>
+          <div><strong>JSON</strong><span>respuesta</span></div>
+        </div>
+      </aside>
+    </section>
+
+    <section id="explorar" class="container section">
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">LABORATORIO EN VIVO</span>
+          <h2>Buscador de personajes</h2>
+          <p>Filtra por nombre, estado y género. La información se obtiene directamente desde la API.</p>
+        </div>
+        <div class="request-badge" id="requestBadge">Listo para consultar</div>
+      </div>
+
+      <form id="searchForm" class="filters" autocomplete="off">
+        <label class="field field-wide">
+          <span>Nombre</span>
+          <input id="nameInput" type="search" placeholder="Ej. Rick, Morty, Summer..." />
+        </label>
+        <label class="field">
+          <span>Estado</span>
+          <select id="statusSelect">
+            <option value="">Todos</option>
+            <option value="alive">Vivo</option>
+            <option value="dead">Muerto</option>
+            <option value="unknown">Desconocido</option>
+          </select>
+        </label>
+        <label class="field">
+          <span>Género</span>
+          <select id="genderSelect">
+            <option value="">Todos</option>
+            <option value="female">Femenino</option>
+            <option value="male">Masculino</option>
+            <option value="genderless">Sin género</option>
+            <option value="unknown">Desconocido</option>
+          </select>
+        </label>
+        <button class="btn btn-primary filter-btn" type="submit">Buscar</button>
+        <button id="clearBtn" class="btn btn-ghost filter-btn" type="button">Limpiar</button>
+      </form>
+
+      <div id="feedback" class="feedback" role="status" aria-live="polite"></div>
+      <div id="charactersGrid" class="characters-grid" aria-live="polite"></div>
+
+      <div class="pagination" id="pagination">
+        <button id="prevBtn" class="btn btn-secondary" type="button">← Anterior</button>
+        <span id="pageInfo">Página 1</span>
+        <button id="nextBtn" class="btn btn-secondary" type="button">Siguiente →</button>
+      </div>
+    </section>
+
+    <section id="api" class="container section api-section">
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">¿CÓMO FUNCIONA?</span>
+          <h2>Consumo de la API con JavaScript</h2>
+          <p>El proyecto usa peticiones HTTP GET y transforma la respuesta JSON en tarjetas HTML.</p>
+        </div>
+      </div>
+
+      <div class="api-grid">
+        <article class="info-card">
+          <span class="step">01</span>
+          <h3>Construir la URL</h3>
+          <p>Los filtros del formulario se convierten en parámetros de consulta para el endpoint de personajes.</p>
+        </article>
+        <article class="info-card">
+          <span class="step">02</span>
+          <h3>Ejecutar fetch()</h3>
+          <p>Se realiza una solicitud asíncrona, se valida el código HTTP y luego se procesa la respuesta.</p>
+        </article>
+        <article class="info-card">
+          <span class="step">03</span>
+          <h3>Convertir a JSON</h3>
+          <p>La respuesta se transforma con response.json() para trabajar con objetos de JavaScript.</p>
+        </article>
+        <article class="info-card">
+          <span class="step">04</span>
+          <h3>Renderizar resultados</h3>
+          <p>El DOM se actualiza dinámicamente con nombre, imagen, estado, especie, ubicación y episodios.</p>
+        </article>
+      </div>
+
+      <div class="code-card">
+        <div class="code-card-head">
+          <span>Ejemplo usado en el proyecto · async/await</span>
+          <span class="code-lang">JavaScript</span>
+        </div>
+        <pre><code>async function cargarPersonajes(url) {
+  const respuesta = await fetch(url);
+
+  if (!respuesta.ok) {
+    throw new Error(`Error HTTP: ${respuesta.status}`);
+  }
+
+  const datos = await respuesta.json();
+  renderizarPersonajes(datos.results);
+}</code></pre>
+      </div>
+    </section>
+
+    <section id="acerca" class="container section about-section">
+      <div class="about-card">
+        <div>
+          <span class="eyebrow">ACERCA DEL PROYECTO</span>
+          <h2>Portal frontend de consumo de servicios web</h2>
+        </div>
+        <p>
+          Esta práctica demuestra el consumo de una API pública desde el navegador sin backend propio.
+          Incluye manejo de carga, errores, filtros, paginación y actualización dinámica de la interfaz.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>Proyecto académico · Diseño de Sistemas en Internet · 2026</p>
+    <a href="https://rickandmortyapi.com/documentation" target="_blank" rel="noopener noreferrer">Documentación de la API ↗</a>
+  </footer>
+
+  <dialog id="characterDialog" class="dialog">
+    <button id="closeDialog" class="dialog-close" aria-label="Cerrar">×</button>
+    <div id="dialogContent"></div>
+  </dialog>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
